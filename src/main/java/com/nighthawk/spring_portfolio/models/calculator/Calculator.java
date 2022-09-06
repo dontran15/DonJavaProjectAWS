@@ -30,65 +30,69 @@ public class Calculator {
         Calculator calculator = new Calculator(); // instantiate calculator
         String[] parsedInput = input.split("[+\\-\\*/]"); // parse term values
         if (parsedInput.length == 1) { // checks if split doesnt happen (result if a nonvalid input is inputted)
-            return "Please input again. Valid inputs must use basic operators and double values";
+            return input;
         }
         double output = 0; // output term
 
-        for (String t : parsedInput) { // adds to term values to termValues ArrayList
-            calculator.termValues.add(Double.valueOf(t));
-        }
+        try {
+            for (String t : parsedInput) { // adds to term values to termValues ArrayList
+                calculator.termValues.add(Double.valueOf(t));
+            }
 
-        for (int i = 0; i < input.length() - 1;) {
-            for (int t = 0; t < parsedInput.length - 1; t++) {
-                int tLength = parsedInput[t].length();
-                i += tLength;
-                if (i >= input.length()) {
-                    break;
-                }
-                char operator = input.charAt(i);
-                if (t == 0) {
-                    switch (operator) {
-                        case '+':
-                            output += Double.valueOf(parsedInput[t]) + Double.valueOf(parsedInput[t + 1]);
-                            i++;
-                            break;
-                        case '-':
-                            output += Double.valueOf(parsedInput[t]) - Double.valueOf(parsedInput[t + 1]);
-                            i++;
-                            break;
-                        case '*':
-                            output += Double.valueOf(parsedInput[t]) * Double.valueOf(parsedInput[t + 1]);
-                            i++;
-                            break;
-                        case '/':
-                            output += Double.valueOf(parsedInput[t]) / Double.valueOf(parsedInput[t + 1]);
-                            i++;
-                            break;
+            for (int i = 0; i < input.length() - 1;) {
+                for (int t = 0; t < parsedInput.length - 1; t++) {
+                    int tLength = parsedInput[t].length();
+                    i += tLength;
+                    if (i >= input.length()) {
+                        break;
                     }
-                } else {
-                    switch (operator) {
-                        case '+':
-                            output += Double.valueOf(parsedInput[t + 1]);
-                            i++;
-                            break;
-                        case '-':
-                            output -= Double.valueOf(parsedInput[t + 1]);
-                            i++;
-                            break;
-                        case '*':
-                            output *= Double.valueOf(parsedInput[t + 1]);
-                            i++;
-                            break;
-                        case '/':
-                            output /= Double.valueOf(parsedInput[t + 1]);
-                            i++;
-                            break;
+                    char operator = input.charAt(i);
+                    if (t == 0) {
+                        switch (operator) {
+                            case '+':
+                                output += Double.valueOf(parsedInput[t]) + Double.valueOf(parsedInput[t + 1]);
+                                i++;
+                                break;
+                            case '-':
+                                output += Double.valueOf(parsedInput[t]) - Double.valueOf(parsedInput[t + 1]);
+                                i++;
+                                break;
+                            case '*':
+                                output += Double.valueOf(parsedInput[t]) * Double.valueOf(parsedInput[t + 1]);
+                                i++;
+                                break;
+                            case '/':
+                                output += Double.valueOf(parsedInput[t]) / Double.valueOf(parsedInput[t + 1]);
+                                i++;
+                                break;
+                        }
+                    } else {
+                        switch (operator) {
+                            case '+':
+                                output += Double.valueOf(parsedInput[t + 1]);
+                                i++;
+                                break;
+                            case '-':
+                                output -= Double.valueOf(parsedInput[t + 1]);
+                                i++;
+                                break;
+                            case '*':
+                                output *= Double.valueOf(parsedInput[t + 1]);
+                                i++;
+                                break;
+                            case '/':
+                                output /= Double.valueOf(parsedInput[t + 1]);
+                                i++;
+                                break;
+                        }
                     }
                 }
             }
-        }
 
-        return String.valueOf(output);
+            return String.valueOf(output);
+        } catch (Exception e) {
+            return "Invalid Input";
+        }
     }
 
     // Uses ArrayLists to calculate and parse: (TODO: Implement tree data structure
