@@ -1,6 +1,6 @@
 package com.hacks.Calculator;
 
-import org.jfree.data.function.Function2D;
+import java.lang.Math;
 
 public class CalculatorMath {
     private double num1;
@@ -12,7 +12,7 @@ public class CalculatorMath {
         this.num2 = num2;
         this.funct = funct;
 
-        this.calculateOutput();
+        this.calculateOutput(num1, num2, funct);
     }
 
     public double getNum1() {
@@ -27,6 +27,47 @@ public class CalculatorMath {
         return this.funct;
     }
 
-    
+    public void setNum1(double num1) {
+        this.num1 = num1;
+    }
+
+
+    public double calculateOutput(double num1, double num2, String funct){
+        double Output = 0;
+
+        if (funct.equals("+")){
+            Output = num1 + num2;
+        }
+        else if (funct.equals("-")){
+            Output = num1 - num2;
+        }
+        else if (funct.equals("*")){
+            Output = num1 * num2;
+        }
+        else if (funct.equals("/")){
+            Output = num1 / num2;
+        }
+        else if (funct.equals("sin")){
+            Output = Math.sin(num1);
+        }
+        else if (funct.equals("cos")){
+            Output = Math.cos(num1);
+        }
+        else if (funct.equals("tan")){
+            Output = Math.tan(num1);
+        }
+        else if (funct.equals("a^b")){
+            Output = Math.pow(num1, num2);
+        }
+        else if (funct.equals("mod")){
+            Output = num1 % num2;
+        }
+        else if (funct.equals("log")){
+            Output = Math.log(num1)/Math.log(num2);
+        }
+        
+
+        return(Output);
+    }
 
 }
