@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html
+  xmlns:layout="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.w3.org/1999/xhtml"
+  layout:decorate="~{layouts/base}"
+  lang="en"
+>
+  <head>
+    <title>Calculator</title>
+  </head>
+  <body>
+    <th:block layout:fragment="body" th:remove="tag">
+      <h4>A calculator woah</h4>
+      <form action="/calculator" method="GET" id="calcForm">
+        <div>
+          <label for="calcInputField">Type your expression: </label>
+          <input name="input" id="calcForm">
+          <button>Calculate</button>
+          <p>
+            <span>Here's your output: </span>
+            <p th:text="${output}"></p>
+          </p>
+        </div>
+      </form>
+    </th:block>
+  </body>
+</html>
