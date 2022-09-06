@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml"
+    layout:decorate="~{layouts/base}" lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" th:href="@{/scss/calc.css}" media="all">
+</head>
+    <body>
+    <th:block layout:fragment="body" th:remove="tag">
+                <h1>Calculator Design Using HTML Layout</h1>
+            <div class="container">
+            <div class="header">Calculator</div>
+            <input type="text" class="result">
+            <div class="first-row">
+                <input type="button" name="" value="1" class="box">
+                <input type="button" name="" value="2" class="box">
+                <input type="button" name="" value="3" class="box">
+                <input type="button" name="" value="-" class="box">
+            </div>
+            <div class="second-row">
+                <input type="button" name="" value="4" class="box">
+                <input type="button" name="" value="5" class="box">
+                <input type="button" name="" value="6" class="box">
+                <input type="button" name="" value="X" class="box">
+            </div>
+            <div class="third-row">
+                <input type="button" name="" value="7" class="box">
+                <input type="button" name="" value="8" class="box">
+                <input type="button" name="" value="9" class="box">
+                <input type="button" name="" value="/" class="box">
+            </div>
+            <div class="conflict">
+                <div class="left">
+                <input type="button" name="" value="0" class="box">
+                <input type="button" name="" value="." class="box">
+                <input type="button" name="" value="Del" class=" red box white-text top-margin">
+                <input type="button" name="" value="=" class=" green white-text box top-margin">
+                </div>
+                <div class="right">
+                <input type="button" name="" value="+" class="box grey plus">
+                </div>
+            </div>
+            </div>
+    </th:block>
+    </body>
+</html>
