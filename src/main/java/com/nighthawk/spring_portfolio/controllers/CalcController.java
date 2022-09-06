@@ -27,7 +27,7 @@ public class CalcController {
         model.addAttribute("output", output);
 
         // load HTML VIEW (calculator.html)
-        return "calculator";
+        return "calculatorTemp";
 
     }
 
