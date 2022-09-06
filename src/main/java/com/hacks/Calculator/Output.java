@@ -1,9 +1,5 @@
 package com.hacks.Calculator; // maven build
 
-
-// import the other files
-
-
 // import swing and awt
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -23,11 +19,9 @@ public class Output extends JFrame {
 
     public static void main(String[] args) {
     
-        // runs the creation of the graph with a queue in a different thread and posts the gui after events are processed
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                // initialize new TrajectoryGraph object, setvisible to display the graph
                 new Output().setVisible(true);
             }
         });
