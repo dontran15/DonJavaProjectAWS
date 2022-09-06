@@ -1,38 +1,45 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml"
-      layout:decorate="~{layouts/base}" lang="en">
-
+    layout:decorate="~{layouts/base}" lang="en">
 <head>
-    <title>Birds</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/scss/calc.css}" media="all">
 </head>
-
-<body>
-<th:block layout:fragment="body" th:remove="tag">
-    <!-- Start of body content specific to page -->
-    <div class="px-4 py-5 my-5">
-        <h3 class="display-5 fw-bold">Birds</h3>
-    </div>
-    <!-- End of body content specific to page -->
-</th:block>
-</body>
-
-<th:block layout:fragment="script" th:remove="tag">
-<!-- Start of custom script specific to page -->
-<script src="/static/vanta/three.r119.min.js" th:src="@{/vanta/three.r119.min.js}"></script>
-<script src="/static/vanta/vanta.birds.min.js" th:src="@{/vanta/vanta.birds.min.js}"></script>
-<script>
-    VANTA.BIRDS({
-        el: "body",
-        mouseControls: true,
-        touchControls: true,
-        gyroControls: false,
-        minHeight: 200.00,
-        minWidth: 200.00,
-        scale: 1.00,
-        scaleMobile: 1.00
-    })
-</script>
-<!-- End of custom script specific to page -->
-</th:block>
-
+    <body>
+    <th:block layout:fragment="body" th:remove="tag">
+                <h1>Calculator Template</h1>
+            <div class="container">
+            <div class="header">Calculator</div>
+            <input type="text" class="result">
+            <div class="first-row">
+                <input type="button" name="" value="1" class="box">
+                <input type="button" name="" value="2" class="box">
+                <input type="button" name="" value="3" class="box">
+                <input type="button" name="" value="-" class="box">
+            </div>
+            <div class="second-row">
+                <input type="button" name="" value="4" class="box">
+                <input type="button" name="" value="5" class="box">
+                <input type="button" name="" value="6" class="box">
+                <input type="button" name="" value="X" class="box">
+            </div>
+            <div class="third-row">
+                <input type="button" name="" value="7" class="box">
+                <input type="button" name="" value="8" class="box">
+                <input type="button" name="" value="9" class="box">
+                <input type="button" name="" value="/" class="box">
+            </div>
+            <div class="conflict">
+                <div class="left">
+                <input type="button" name="" value="0" class="big">
+                <input type="button" name="" value="." class="small">
+                <input type="button" name="" value="Del" class=" red small white-text top-margin">
+                <input type="button" name="" value="=" class=" green white-text big top-margin">
+                </div>
+                <div class="right">
+                <input type="button" name="" value="+" class="box grey plus">
+                </div>
+            </div>
+            </div>
+    </th:block>
+    </body>
 </html>
