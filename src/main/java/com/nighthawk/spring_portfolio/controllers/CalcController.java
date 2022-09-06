@@ -14,9 +14,8 @@ public class CalcController {
     // CONTROLLER handles GET request for /calculator, maps it to calculator()
     // method
     @GetMapping("/calculator")
-    public String calculator(
-            @RequestParam(name = "input", required = false) String input, Model model) {
-        // TODO: call calculator to do the actual work
+    public String calculator(@RequestParam(name = "input", required = false) String input, Model model) {
+        // If no output parameter has been inputted
         String output;
         if (input != null) {
             output = Calculator.calculate(input);
@@ -24,6 +23,7 @@ public class CalcController {
             output = "";
         }
 
+        // model to map output into html
         model.addAttribute("output", output);
 
         // load HTML VIEW (calculator.html)
