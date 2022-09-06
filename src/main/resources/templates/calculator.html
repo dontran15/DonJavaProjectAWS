@@ -7,9 +7,10 @@
     <body>
     <th:block layout:fragment="body" th:remove="tag">
                 <h1>Calculator Design Using HTML Layout</h1>
+        <form action="/calculator" method="GET" id="calcForm">
             <div class="container">
             <div class="header">Calculator</div>
-            <input type="text" class="result">
+            <input type="text" class="result" name="input" id="calcForm" th:value="${output}">
             <div class="first-row">
                 <input type="button" name="" value="1" class="box">
                 <input type="button" name="" value="2" class="box">
@@ -33,13 +34,14 @@
                 <input type="button" name="" value="0" class="box">
                 <input type="button" name="" value="." class="box">
                 <input type="button" name="" value="Del" class=" red box white-text top-margin">
-                <input type="button" name="" value="=" class=" green white-text box top-margin">
+                <input type="submit" name="" value="=" class=" green white-text box top-margin">
                 </div>
                 <div class="right">
                 <input type="button" name="" value="+" class="box grey plus">
                 </div>
             </div>
             </div>
+        </form>
     </th:block>
     </body>
 </html>

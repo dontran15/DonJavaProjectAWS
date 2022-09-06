@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.nighthawk.spring_portfolio.models.calculator.*;
 
 @Controller // HTTP requests are handled as a controller, using the @Controller annotation
-public class CalcController {
+public class CalcControllerTemp {
 
     // CONTROLLER handles GET request for /calculator, maps it to calculator()
     // method
-    @GetMapping("/calculator")
+    @GetMapping("/calculatorTemp")
     public String calculator(@RequestParam(name = "input", required = false) String input, Model model) {
         // If no output parameter has been inputted
         String output;
@@ -22,11 +22,12 @@ public class CalcController {
         } else {
             output = "";
         }
+
         // model to map output into html
         model.addAttribute("output", output);
 
         // load HTML VIEW (calculator.html)
-        return "calculator";
+        return "calculatorTemp";
 
     }
 
