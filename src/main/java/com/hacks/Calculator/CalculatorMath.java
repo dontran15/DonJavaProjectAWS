@@ -35,34 +35,34 @@ public class CalculatorMath {
     public double calculateOutput(double num1, double num2, String funct){
         double Output = 0;
 
-        if (funct == "+"){
+        if (funct.equals("+")){
             Output = num1 + num2;
         }
-        else if (funct == "-"){
+        else if (funct.equals("-")){
             Output = num1 - num2;
         }
-        else if (funct == "*"){
+        else if (funct.equals("*")){
             Output = num1 * num2;
         }
-        else if (funct == "/"){
+        else if (funct.equals("/")){
             Output = num1 / num2;
         }
-        else if (funct == "sin"){
+        else if (funct.equals("sin")){
             Output = Math.sin(num1);
         }
-        else if (funct == "cos"){
+        else if (funct.equals("cos")){
             Output = Math.cos(num1);
         }
-        else if (funct == "tan"){
+        else if (funct.equals("tan")){
             Output = Math.tan(num1);
         }
-        else if (funct == "a^b"){
+        else if (funct.equals("a^b")){
             Output = Math.pow(num1, num2);
         }
-        else if (funct == "mod"){
+        else if (funct.equals("mod")){
             Output = num1 % num2;
         }
-        else if (funct == "log"){
+        else if (funct.equals("log")){
             Output = Math.log(num1)/Math.log(num2);
         }
         

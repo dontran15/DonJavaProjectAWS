@@ -5,9 +5,9 @@ import javax.swing.JTextField; // library to create a text field to render on GU
 
 public class InputInitial {
     // instance variables to be used
-    public static Double initialNum1;
-    public static Double initialNum2;
-    public static String initialFunct;
+    public Double initialNum1;
+    public Double initialNum2;
+    public String initialFunct;
 
     // create the GUI element that users input into
     public void spawnInputs() {
@@ -31,12 +31,14 @@ public class InputInitial {
             initialNum1 = parseInput(inputNum1);
             initialNum2 = parseInput(inputNum2);
             initialFunct = inputFunct.getText().toString();
+
+
         }
         
     }
 
     // change JTextField into Double, also error handling
-    public Double parseInput(JTextField inputValue) {
+    public double parseInput(JTextField inputValue) {
         String placeholder = inputValue.getText(); // get the string out of the input
         
         // error handling + edge cases
@@ -46,7 +48,7 @@ public class InputInitial {
             return initialValue;
         } catch (Exception e) { // if cannot be cased as a double, throw error --> reinput values
             JOptionPane.showMessageDialog(null, "There was an invalid input for " + placeholder + ", please try again. " + e, "Unwanted Input", JOptionPane.WARNING_MESSAGE);
-            return null;
+            return (Double) null;
         }
     }
 }
