@@ -13,4 +13,4 @@ volumes:
     driver_opts:
       o: bind
       type: none
-      device: /home/ubuntu/DonJavaProjectAWS/volumes2
+      device: /home/ubuntu/JavaProject1.5/volumes2
