@@ -1,9 +1,9 @@
 # syntax=docker/dockerfile:1
-FROM openjdk:16-alpine3.13
+FROM openjdk:17-alpine
 WORKDIR /app
 RUN apk update && apk upgrade && \
     apk add --no-cache git 
-RUN git clone https://github.com/nighthawkcoders/spring_portfolio.git /app
+RUN git clone https://github.com/dontran15/DonJavaProjectAWS /app
 RUN ./mvnw package
 CMD ["java", "-jar", "target/spring-0.0.1-SNAPSHOT.jar"]
 EXPOSE 8080
