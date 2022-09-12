@@ -18,7 +18,10 @@ public class CalcController {
         // If no output parameter has been inputted
         String output;
         if (input != null) {
-            output = Calculator.calculate(input);
+            CalculatorRPN calcRPN = new CalculatorRPN();
+            calcRPN.parse(input);
+            calcRPN.shuntingYardAlg();
+            output = String.valueOf(calcRPN.rpnEvaluate());
         } else {
             output = "";
         }
@@ -27,7 +30,6 @@ public class CalcController {
 
         // load HTML VIEW (calculator.html)
         return "calculator";
-
     }
 
 }
