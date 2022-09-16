@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class test {
     public static void main(String[] args) {
-        String input = "-12        +4 *2/(1  -5) ^2  ^3";
+        String input = "(-23+5)";
         CalculatorRPN calcRPN = new CalculatorRPN();
         ArrayList<String> tokens = calcRPN.parse(input);
         for (String token : tokens) {

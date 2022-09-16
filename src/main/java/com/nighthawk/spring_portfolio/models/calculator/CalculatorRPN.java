@@ -25,6 +25,10 @@ public class CalculatorRPN {
         }
     }
 
+    public boolean isOperator(String s) {
+        return s.length() == 1 && isOperator(s.charAt(0));
+    }
+
     public boolean isParenthesis(char c) {
         switch (c) {
             case '(':
@@ -37,7 +41,7 @@ public class CalculatorRPN {
     }
 
     public boolean isNumber(String s) {
-        return !isOperator(s.charAt(0)) && !isParenthesis(s.charAt(0));
+        return !isOperator(s) && !isParenthesis(s.charAt(0));
     }
 
     public int getPrecedence(char c) {
@@ -54,6 +58,14 @@ public class CalculatorRPN {
                 return 4;
             default:
                 return -1;
+        }
+    }
+
+    public int getPrecedence(String s) {
+        if (s.length() == 1) {
+            return (getPrecedence(s.charAt(0)));
+        } else {
+            return -1;
         }
     }
 
@@ -74,6 +86,14 @@ public class CalculatorRPN {
         }
     }
 
+    public String getAssociativity(String s) {
+        if (s.length() == 1) {
+            return getAssociativity(s.charAt(0));
+        } else {
+            return "";
+        }
+    }
+
     public double calculate(char operator, double x1, double x2) {
         switch (operator) {
             case '+':
@@ -91,6 +111,14 @@ public class CalculatorRPN {
         }
     }
 
+    public double calculate(String operator, double x1, double x2) {
+        if (operator.length() == 1) {
+            return calculate(operator.charAt(0), x1, x2);
+        } else {
+            throw new RuntimeException("Unsupported operator or function: " + operator);
+        }
+    }
+
     // parse input string as array of tokens
     public ArrayList<String> parse(String input) {
         String s = "";
@@ -104,12 +132,49 @@ public class CalculatorRPN {
         }
 
         String[] splittedTokens = s.split("\n", 0);
+        ArrayList<String> tempTokens = new ArrayList<>();
         for (String token : splittedTokens) {
             String trimmedToken = token.trim();
             if (trimmedToken != "") {
-                tokens.add(trimmedToken);
+                tempTokens.add(trimmedToken);
             }
         }
+
+        if (tempTokens.get(0).equals("-")) { // if breaks, try adding tokens -1, * instead
+            tokens.add("0");
+        }
+
+        for (int i = 0; i < tempTokens.size(); i++) {
+            tokens.add(tempTokens.get(i));
+            if (i + 1 >= tempTokens.size()) {
+                break;
+            }
+
+            if (tempTokens.get(i).equals(")") && tempTokens.get(i + 1).equals("(")) {
+                tokens.add("*");
+            }
+
+            if (i > 0 && tempTokens.get(i - 1).equals("(") && tempTokens.get(i).equals("-")) {
+                tokens.remove(i);
+                tokens.add("-1");
+                tokens.add("*");
+            }
+
+            if (isNumber(tempTokens.get(i)) && tempTokens.get(i + 1).equals("(")) {
+                tokens.add("*");
+            }
+
+            if (tempTokens.get(i).equals(")") && isNumber(tempTokens.get(i + 1))) {
+                tokens.add("*");
+            }
+
+            if (i > 0 && tempTokens.get(i - 1).equals("^") && tempTokens.get(i).equals("-")) {
+                tokens.remove(i);
+                tokens.add("^");
+                tokens.add("-1");
+            }
+        }
+
         return tokens;
     }
 
@@ -119,10 +184,10 @@ public class CalculatorRPN {
         for (String token : tokens) {
             if (isNumber(token)) {
                 rpnOutput.add(token);
-            } else if (isOperator(token.charAt(0))) {
+            } else if (isOperator(token)) {
                 while (!operatorStack.isEmpty()) {
-                    char o1 = token.charAt(0);
-                    char o2 = operatorStack.peek().charAt(0);
+                    String o1 = token;
+                    String o2 = operatorStack.peek();
                     int o1P = getPrecedence(o1);
                     int o2P = getPrecedence(o2);
                     if ((isOperator(o2) && (o2P > o1P || (o1P == o2P && getAssociativity(o1) == "left")))) {
@@ -159,11 +224,11 @@ public class CalculatorRPN {
         for (String e : rpnOutput) {
             if (isNumber(e)) {
                 resultStack.push(e);
-            } else if (isOperator(e.charAt(0))) {
+            } else if (isOperator(e)) {
                 double x2 = Double.valueOf(resultStack.pop());
                 double x1 = Double.valueOf(resultStack.pop());
 
-                double r = calculate(e.charAt(0), x1, x2);
+                double r = calculate(e, x1, x2);
                 resultStack.push(String.valueOf(r));
             }
         }
