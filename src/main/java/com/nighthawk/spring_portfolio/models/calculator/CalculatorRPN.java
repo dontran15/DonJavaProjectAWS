@@ -7,6 +7,8 @@ public class CalculatorRPN {
     ArrayList<String> tokens = new ArrayList<>();
     ArrayList<String> rpnOutput = new ArrayList<>();
 
+    String[] functions = { "sin", "cos", "tan", "ln" };
+
     // checks for operator
     public boolean isOperator(char c) {
         switch (c) {
@@ -40,8 +42,25 @@ public class CalculatorRPN {
         }
     }
 
+    public boolean isFunction(char c) {
+        for (String func : functions) {
+            if (c == func.charAt(0)) {
+                return true;
+            }
+            if (c == 'o') {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public boolean isFunction(String s) {
+        return s.length() == 1 && isFunction(s.charAt(0));
+    }
+
     public boolean isNumber(String s) {
-        return !isOperator(s) && !isParenthesis(s.charAt(0));
+        return !isOperator(s) && !isParenthesis(s.charAt(0)) && !isFunction(s);
     }
 
     public int getPrecedence(char c) {
@@ -107,7 +126,7 @@ public class CalculatorRPN {
             case '^':
                 return Math.pow(x1, x2);
             default:
-                throw new RuntimeException("Unsupported operator or function: " + operator);
+                throw new RuntimeException("Unsupported operator: " + operator);
         }
     }
 
@@ -119,19 +138,50 @@ public class CalculatorRPN {
         }
     }
 
+    public double funcCalculate(char function, double x) {
+        switch (function) {
+            case 's':
+                return Math.sin(x);
+            case 'c':
+                return Math.cos(x);
+            case 't':
+                return Math.tan(x);
+            case 'l':
+                return Math.log1p(x);
+            case 'o':
+                return Math.log10(x);
+            default:
+                throw new RuntimeException("Unsupported function: " + function);
+        }
+    }
+
+    public double funcCalculate(String function, double x) {
+        if (function.length() == 1) {
+            return funcCalculate(function.charAt(0), x);
+        } else {
+            throw new RuntimeException("Unsupported operator or function: " + function);
+        }
+    }
+
     // parse input string as array of tokens
     public ArrayList<String> parse(String input) {
         String s = "";
+        for (String func : functions) {
+            input = input.replaceAll(func, Character.toString(func.charAt(0)));
+        }
+
+        input = input.replaceAll("log", "o");
+
         for (int i = 0; i < input.length(); i++) {
             char c = input.charAt(i);
             if (isNumber(String.valueOf(c))) {
                 s += c;
             } else {
-                s += "\n" + c + "\n";
+                s += "\t" + c + "\t";
             }
         }
 
-        String[] splittedTokens = s.split("\n", 0);
+        String[] splittedTokens = s.split("\t", 0);
         ArrayList<String> tempTokens = new ArrayList<>();
         for (String token : splittedTokens) {
             String trimmedToken = token.trim();
@@ -155,7 +205,7 @@ public class CalculatorRPN {
             }
 
             if (i > 0 && tempTokens.get(i - 1).equals("(") && tempTokens.get(i).equals("-")) {
-                tokens.remove(i);
+                tokens.remove(tokens.size() - 1);
                 tokens.add("-1");
                 tokens.add("*");
             }
@@ -184,6 +234,8 @@ public class CalculatorRPN {
         for (String token : tokens) {
             if (isNumber(token)) {
                 rpnOutput.add(token);
+            } else if (isFunction(token)) {
+                operatorStack.push(token);
             } else if (isOperator(token)) {
                 while (!operatorStack.isEmpty()) {
                     String o1 = token;
@@ -208,6 +260,10 @@ public class CalculatorRPN {
                     rpnOutput.add(s);
                 }
                 operatorStack.pop();
+                if (isFunction(operatorStack.peek())) {
+                    String s = operatorStack.pop();
+                    rpnOutput.add(s);
+                }
             }
 
         }
@@ -229,6 +285,11 @@ public class CalculatorRPN {
                 double x1 = Double.valueOf(resultStack.pop());
 
                 double r = calculate(e, x1, x2);
+                resultStack.push(String.valueOf(r));
+            } else if (isFunction(e)) {
+                double x = Double.valueOf(resultStack.pop());
+
+                double r = funcCalculate(e, x);
                 resultStack.push(String.valueOf(r));
             }
         }
